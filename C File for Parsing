@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <string.h>
+
+int compare(FILE *);
+
+int main() {
+
+    //attempt to open user doc, check for error
+    char filename[] = "doc1.txt";   //name of user file
+    FILE *fileptr;
+    fopen_s(&fileptr, filename, "w+");   //open the doc
+    if (fileptr == NULL)    //doc did not open correctly
+    {
+        printf("Error opening document\n");
+        return 0;                            //other mitigation may be better
+    }
+
+//doc has opened successfully, call compare function to read doc
+    int compare_return = compare(fileptr);
+    printf("%d\n", compare_return);          //output number of matches found
+
+
+
+//close doc
+    if (fileptr) fclose(fileptr);
+
+
+    return 0;
+}
+
+
+//function to compare each word of open doc with database
+//will return number of matches found to main
+int compare(FILE *fileptr){
+    char reading[20];   //may want to use MAX variable instead
+    int matchCount = 0;
+    char endCheck = getc(fileptr);
+
+    while(endCheck != EOF)      //check for the end of the doc
+    {
+        fscanf_s(fileptr, "%s", reading);     //read in one word and save
+        // this is where comparison to database needs to happen, not sure best way
+    }
+
+    return matchCount;
+
+}
